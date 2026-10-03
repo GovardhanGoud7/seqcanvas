@@ -1,0 +1,16 @@
+sequenceDiagram
+    actor C as Customer
+    participant S as Web Shop
+    participant P as Payment Service
+    participant B as Bank
+    C->>S: Place order
+    S->>P: Create payment request
+    P->>B: Authorize card
+    B-->>P: Authorization result
+    alt Payment approved
+        P-->>S: Payment confirmed
+        S-->>C: Show receipt
+    else Payment declined
+        P-->>S: Payment failed
+        S-->>C: Ask for another card
+    end
